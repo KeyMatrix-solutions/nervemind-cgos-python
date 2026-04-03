@@ -1,6 +1,15 @@
 # NerveMind CGOS Python SDK
 
-**AI governance sdk python fintech enterprise-ai risk-management api client**
+**AI governance SDK Python fintech enterprise-ai risk-management api client**
+
+## 📜 Intellectual Property
+
+NerveMind CGOS is a patented system by Keymatrix Solutions.
+
+- Indian Patent: Published  
+- International Patent: Filed under WIPO (PCT)
+
+For more details, contact: info@keymatrixsolutions.com
 
 Install in seconds:
 
