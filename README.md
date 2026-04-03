@@ -1,59 +1,155 @@
 # NerveMind CGOS Python SDK
 
-Developer-oriented client for **decision intake (v2)**, **proof validation**, and **execution invoke** (gateway).
+**Governance enforcement for AI and enterprise systems**
 
-## Install (local / editable)
+Install in seconds:
 
 ```bash
-cd sdks/python
-pip install -e .
+pip install nervemind-cgos
 ```
 
-## Quick start
+---
+
+## 🚀 What is CGOS?
+
+**CGOS (Cognitive Governance Operating System)** is a control layer that ensures all AI and system actions are evaluated, approved, and enforced based on governance rules before execution.
+
+This SDK allows you to integrate CGOS into your system in minutes.
+
+---
+
+## ⚡ Quick Start
 
 ```python
 from cgos_sdk import CGOSClient
 
 client = CGOSClient(
-    base_url="https://cgos-api.example.com",
-    api_key="your-api-key",
-    internal_service_token="...",  # for verify_proof / invoke_execution
+    base_url="https://your-cgos-api.com",
+    api_key="your-api-key"
 )
 
-out = client.submit_decision(
-    source_system="core-payments",
-    sector="banking",
-    decision_type="limit_increase",
-    decision_id="dec-001",
-    context={"amount": 5000},
-    policy_set="ORGANIZATION_POLICY_V1",
-    callback_url="https://your-bank.example/callbacks/cgos",
-    correlation_id="trace-abc",
+response = client.submit_decision(
+    source_system="loan_system",
+    sector="finance",
+    decision_type="loan_approval",
+    decision_id="loan_123",
+    context={"amount": 50000},
+    policy_set="default",
+    callback_url="https://your-system.com/callback"
 )
 
-proof_check = client.verify_proof(out.get("proof_id") or "prf_...")
-exec_resp = client.invoke_execution(
-    proof_id="prf_...",
-    path="/api/v1/payments/transfer",
-    organization_id="org_123",
-    http_method="POST",
-    json_body={"to": "x", "amount": 1},
-)
+print(response)
 ```
 
-## Auth
+---
 
-| Call | Header |
-|------|--------|
-| Intake v2 | `X-API-Key` or `Authorization: Bearer <api_key>` (matches brain-api) |
-| Proof validate / execution | `X-CGOS-Internal-Token` (S2S) |
+## 🧠 Core Capabilities
 
-Optional **bearer JWT** (UI / ops) enables `wait_for_decision()` polling on `GET /api/v1/cgos/decisions/{id}`.
+* Submit decisions for governance evaluation
+* Validate execution proofs
+* Invoke controlled execution flows
+* Built-in retry, tracing, and observability hooks
 
-## Reliability
+---
 
-`CGOSClient` supports `timeout_s`, `max_retries`, `Idempotency-Key` on intake (passed as header when provided), and optional `traceparent` / `correlation_id` on every request.
+## 🔁 Typical Flow
 
-## External attestation
+```plaintext
+Your System → CGOS → Governance Decision → Execution Control
+```
 
-This SDK cannot prove mesh or gateway posture. Pair with SPIFFE/SPIRE, signed policy bundles, and CI validators — see `docs/CGOS_EXTERNAL_ATTESTATION_AND_SDK.md` at repo root.
+1. Submit action to CGOS
+2. CGOS evaluates against policies
+3. Receive approval / rejection / escalation
+4. Execute action through controlled pathway
+
+---
+
+## 📦 Key Methods
+
+### Submit Decision
+
+```python
+client.submit_decision(...)
+```
+
+Send an action to CGOS for governance evaluation.
+
+---
+
+### Verify Proof
+
+```python
+client.verify_proof(proof_id="...")
+```
+
+Validate that an action is approved before execution.
+
+---
+
+### Invoke Execution
+
+```python
+client.invoke_execution(...)
+```
+
+Execute actions through CGOS-controlled pathways.
+
+---
+
+## 🔐 Authentication
+
+You can use:
+
+* API Key (external systems)
+* Internal Service Token (secure backend)
+* Bearer Token (admin / internal flows)
+
+---
+
+## 🏗️ Architecture
+
+CGOS enforces governance by sitting between decision-making and execution:
+
+```plaintext
+AI / User Request
+        ↓
+     CGOS
+        ↓
+Execution Control
+        ↓
+Core System
+```
+
+---
+
+## ⚠️ Important
+
+* CGOS does NOT execute actions directly
+* It enforces whether actions are allowed or not
+* Execution should always be gated by CGOS
+
+---
+
+## 📄 License
+
+MIT License © Keymatrix Solutions
+
+---
+
+## 🌐 Learn More
+
+* PyPI: https://pypi.org/project/nervemind-cgos/
+* GitHub: https://github.com/KeyMatrix-solutions/nervemind-cgos-python
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome. Please open an issue or submit a pull request.
+
+---
+
+## 🚀 About
+
+Built by **Keymatrix Solutions** to bring governance, control, and safety to AI-driven systems.
