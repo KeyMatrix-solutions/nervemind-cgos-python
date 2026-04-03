@@ -1,6 +1,6 @@
 # NerveMind CGOS Python SDK
 
-**Governance enforcement for AI and enterprise systems**
+**AI governance sdk python fintech enterprise-ai risk-management api client**
 
 Install in seconds:
 
