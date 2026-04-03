@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nervemind-cgos"
+version = "0.1.0"
+description = "Official CGOS client: intake, proof validation, execution gateway, observability hooks"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+authors = [{ name = "NerveMind" }]
+dependencies = ["requests>=2.28.0,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "responses>=0.25"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cgos_sdk*"]
